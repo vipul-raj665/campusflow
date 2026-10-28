@@ -12,11 +12,8 @@ const requiredVars = [
 const missing = requiredVars.filter((key) => !process.env[key]);
 
 if (missing.length > 0) {
-  console.error(`[Configuration Error] Missing critical environment variables: ${missing.join(', ')}`);
-  console.error('Please configure these in backend/.env using backend/.env.example as reference.');
-  if (process.env.NODE_ENV === 'production') {
-    process.exit(1);
-  }
+  console.warn(`[Configuration Warning] Missing environment variables: ${missing.join(', ')}`);
+  console.warn('CampusFlow is using default fallbacks. Please configure MONGODB_URI in your deployment dashboard.');
 }
 
 const config = {

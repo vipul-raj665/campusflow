@@ -64,8 +64,23 @@ app.use('/api', apiLimiter);
 // Interactive OpenAPI / Swagger Documentation
 app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, { explorer: true }));
 
+const fs = require('fs');
+const path = require('path');
+
 // Primary Versioned REST Endpoints
 app.use('/api/v1', routes);
+
+// Serve frontend static assets in production if built
+const frontendDist = path.join(__dirname, '../../frontend/dist');
+if (fs.existsSync(frontendDist)) {
+  app.use(express.static(frontendDist));
+  app.get('*', (req, res, next) => {
+    if (req.path.startsWith('/api')) {
+      return next();
+    }
+    res.sendFile(path.join(frontendDist, 'index.html'));
+  });
+}
 
 // 404 and Centralized Error Handling
 app.use(notFoundHandler);

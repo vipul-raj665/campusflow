@@ -11,11 +11,9 @@ services:
     envVars:
       - key: NODE_ENV
         value: production
-      - key: PORT
-        value: 5000
-      - key: MONGODB_URI
-        sync: false
       - key: CLIENT_ORIGIN
+        value: '*'
+      - key: MONGODB_URI
         sync: false
       - key: JWT_ACCESS_SECRET
         generateValue: true
@@ -39,6 +37,6 @@ services:
         destination: /index.html
     envVars:
       - key: VITE_API_URL
-        sync: false
+        value: https://campusflow-backend.onrender.com/api/v1
       - key: VITE_SOCKET_URL
-        sync: false
+        value: https://campusflow-backend.onrender.com
