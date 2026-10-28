@@ -22,12 +22,10 @@ services:
       - key: COOKIE_SECRET
         generateValue: true
 
-  # Frontend React 18 + Vite SPA
+  # Frontend React 18 + Vite SPA (Static site - globally served on CDN, no region)
   - type: web
     name: campusflow-frontend
     runtime: static
-    plan: free
-    region: oregon
     rootDir: frontend
     buildCommand: npm install && npm run build
     staticPublishPath: dist
